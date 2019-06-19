@@ -13,5 +13,18 @@ init:
 
 build: off
 test_script:
+  - sh: echo DefaultValue
+  - sh: echo "DefaultValue"
   - sh: echo Provide a value to the script... && source env.sh Provided
   - sh: echo Rely on default value in the script ... && source env.sh
+  - sh: |
+        bash -x env.sh
+  - sh: |
+        set -x
+        source env.sh
+  - sh: |
+        mv env.sh foo.sh
+        source foo.sh
+  - sh: chmod a+x foo.sh
+  - sh: ./foo.sh
+  
