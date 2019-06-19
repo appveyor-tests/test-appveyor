@@ -13,6 +13,7 @@ init:
 
 build: off
 test_script:
+  - sh: shift
   - sh: echo DefaultValue
   - sh: echo "DefaultValue"
   - sh: echo Provide a value to the script... && source env.sh Provided
