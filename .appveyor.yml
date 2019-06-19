@@ -9,7 +9,7 @@ init:
   - appveyor version
   - sh: echo $APPVEYOR_BUILD_WORKER_IMAGE
   - sh: echo $APPVEYOR_BUILD_WORKER_CLOUD
-  - ps: Update-AppveyorBuild -Message "Test $env:INCLUDE_TAGS tag against $env:TEST_IMAGE @ $env:TEST_CLOUD cloud. $env:APPVEYOR_REPO_COMMIT_MESSAGE"
+#  - ps: Update-AppveyorBuild -Message "Test $env:INCLUDE_TAGS tag against $env:TEST_IMAGE @ $env:TEST_CLOUD cloud. $env:APPVEYOR_REPO_COMMIT_MESSAGE"
 
 build: off
 test_script:
