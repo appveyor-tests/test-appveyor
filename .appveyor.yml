@@ -15,7 +15,11 @@ build: off
 test_script:
   - sh: echo "0='$0'"
   - sh: echo "@='$@'"
-  - sh: shift
+  - sh: |
+       if [[ -n "$1" ]]; then
+         echo "arg \$1 is '$1'"
+         shift
+       fi
   - sh: echo "0='$0'"
   - sh: echo "@='$@'"
   - sh: echo Provide a value to the script... && source env.sh Provided
