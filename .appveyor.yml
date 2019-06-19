@@ -17,8 +17,10 @@ test_script:
   - sh: echo "DefaultValue"
   - sh: echo Provide a value to the script... && source env.sh Provided
   - sh: echo Rely on default value in the script ... && source env.sh
-  - sh: |
-        bash -x env.sh
+  - sh: source env.sh >foo
+  - sh: cat foo
+  - appveyor PushArtifact foo
+  
   - sh: |
         set -x
         source env.sh
@@ -27,4 +29,7 @@ test_script:
         source foo.sh
   - sh: chmod a+x foo.sh
   - sh: ./foo.sh
+  - sh: bash -x env.sh
   
+  - sh: sudo journalctl -u appveyor-build-agent.service  --no-pager > buildagent.log
+  - appveyor PushArtifact buildagent.log 
