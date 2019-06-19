@@ -13,9 +13,11 @@ init:
 
 build: off
 test_script:
+  - sh: echo "0='$0'"
+  - sh: echo "@='$@'"
   - sh: shift
-  - sh: echo DefaultValue
-  - sh: echo "DefaultValue"
+  - sh: echo "0='$0'"
+  - sh: echo "@='$@'"
   - sh: echo Provide a value to the script... && source env.sh Provided
   - sh: echo Rely on default value in the script ... && source env.sh
   - sh: source env.sh >foo
