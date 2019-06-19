@@ -1,29 +1,16 @@
 clone_depth: 10
 configuration: Release
 platform: AnyCPU
+
 environment:
-  matrix:
-  - job_name: Ubuntu 18
-    APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu1804
-  - job_name: Ubuntu 18 (old)
-    APPVEYOR_BUILD_WORKER_IMAGE: Previous Ubuntu1804
-  - job_name: Ubuntu 16
-    APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu1604
-  - job_name: Ubuntu 16 (old)
-    APPVEYOR_BUILD_WORKER_IMAGE: Previous Ubuntu1604
-for:
-  - matrix:
-      only:
-        - job_name: Ubuntu 18
-  - matrix:
-      only:
-        - job_name: Ubuntu 18 (old)
-  - matrix:
-      only:
-        - job_name: Ubuntu 16
-  - matrix:
-      only:
-        - job_name: Ubuntu 16 (old)
+  APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu1804
+
+init:
+  - appveyor version
+  - sh: echo $APPVEYOR_BUILD_WORKER_IMAGE
+  - sh: echo $APPVEYOR_BUILD_WORKER_CLOUD
+  - ps: Update-AppveyorBuild -Message "Test $env:INCLUDE_TAGS tag against $env:TEST_IMAGE @ $env:TEST_CLOUD cloud. $env:APPVEYOR_REPO_COMMIT_MESSAGE"
+
 build: off
 test_script:
   - sh: echo Provide a value to the script... && source env.sh Provided
