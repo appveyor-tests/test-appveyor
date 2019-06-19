@@ -29,7 +29,7 @@ test_script:
         source foo.sh
   - sh: chmod a+x foo.sh
   - sh: ./foo.sh
-  - sh: bash -x env.sh
+  - sh: bash -x foo.sh
   
   - sh: sudo journalctl -u appveyor-build-agent.service  --no-pager > buildagent.log
   - appveyor PushArtifact buildagent.log 
