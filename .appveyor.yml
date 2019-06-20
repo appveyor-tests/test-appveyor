@@ -24,7 +24,7 @@ test_script:
                 fail_flag=true
             fi
         done
-        if fail_flag; then exit 1; fi
+        if ${fail_flag}; then exit 1; fi
 
 on_failure:
   - sh: sudo journalctl -u appveyor-build-agent.service  --no-pager > buildagent.log
