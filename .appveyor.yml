@@ -13,30 +13,19 @@ init:
 
 build: off
 test_script:
-  - sh: echo "0='$0'"
-  - sh: echo "@='$@'"
   - sh: |
-       if [[ -n "$1" ]]; then
-         echo "arg \$1 is '$1'"
-         shift
-       fi
-  - sh: echo "0='$0'"
-  - sh: echo "@='$@'"
-  - sh: echo Provide a value to the script... && source env.sh Provided
-  - sh: echo Rely on default value in the script ... && source env.sh
-  - sh: source env.sh >foo
-  - sh: cat foo
-  - appveyor PushArtifact foo
-  
-  - sh: |
-        set -x
-        source env.sh
-  - sh: |
-        mv env.sh foo.sh
-        source foo.sh
-  - sh: chmod a+x foo.sh
-  - sh: ./foo.sh
-  - sh: bash -x foo.sh
-  
+        echo "0='$0'"
+        echo "@='$@'"
+        fail_flag=false
+        for var in "$@"; do
+            if [ "${#var}" -gt 0 ]; then
+                echo "There is argument found in current bash session!"
+                echo "argument value is '${var}'"
+                fail_flag=true
+            fi
+        done
+        if fail_flag; then exit 1; fi
+
+on_failure:
   - sh: sudo journalctl -u appveyor-build-agent.service  --no-pager > buildagent.log
   - appveyor PushArtifact buildagent.log 
